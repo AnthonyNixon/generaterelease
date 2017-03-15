@@ -5,42 +5,28 @@
  * @param {!Object} res Cloud Function response context.
  */
 
-var animals = {
-  'a': 'aardvark',
-  'b': 'baboon',
-  'c': 'cheetah',
-  'd': 'donkey',
-  'e': 'elephant',
-  'f': 'ferret',
-  'g': 'gecko',
-  'h': 'hawk',
-  'i': 'impala',
-  'j': 'jellyfish',
-  'k': 'kangaroo',
-  'l': 'leopard',
-  'm': 'meerkat',
-  'n': 'newt',
-  'o': 'orangutan',
-  'p': 'parrot',
-  'q': 'quail',
-  'r': 'rabbit',
-  's': 'scorpion',
-  't': 'toad',
-  'u': 'urraca',
-  'v': 'viper',
-  'w': 'wolf',
-  'x': 'xenarthra',
-  'y': 'yak',
-  'z': 'zebra'
-}
-
 exports.generaterelease = function generaterelease(req, res) {
   if (req.query.letter === undefined) {
     // This is an error case, as "message" is required.
+    console.warn(req.query.letter, 'not found');
     res.status(400).send('No letter defined!');
   } else {
     // Everything is okay.
+
     console.log(req.query.letter);
-    res.status(200).send(animals[req.query.letter]);
+
+    var request = require('request');
+    request.get('https://storage.googleapis.com/animals-by-letter/'+req.query.letter.toUpperCase(), function (error, response, body) {
+        if (!error && response.statusCode == 200) {
+            var animalList = body;
+            // Continue with your processing here.
+            var lines = animalList.split('\n');
+            chosenLine = lines[Math.floor(Math.random()*lines.length)];
+            res.status(200).send(animals[req.query.letter]);
+        } else {
+          console.error('Problem getting list from storage bucket');
+          res.status(500).send('Internal Server Error getting bucket');
+        }
+    });
   }
 };
