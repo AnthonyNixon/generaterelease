@@ -20,7 +20,7 @@ exports.generaterelease = function generaterelease(req, res) {
         if (!error && response.statusCode == 200) {
             var animalList = body;
             // Continue with your processing here.
-            var lines = animalList.split('\n');
+            var lines = animalList.split(/\r?\n/);
             chosenAnimal = lines[Math.floor(Math.random()*lines.length)];
             res.status(200).send(chosenAnimal);
         } else {
