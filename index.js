@@ -21,7 +21,7 @@ exports.generaterelease = function generaterelease(req, res) {
             var animalList = body;
             console.log(animalList)
             // Continue with your processing here.
-            var lines = animalList.split("\t");
+            var lines = animalList.split('\t');
             console.log(lines)
             chosenAnimal = lines[Math.floor(Math.random()*lines.length)];
             res.status(200).send(chosenAnimal);
