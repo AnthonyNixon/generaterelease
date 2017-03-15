@@ -13,5 +13,5 @@ for animal in animals:
         animalfile.close()
         processedLetters.append(firstLetter)
     animalfile = open('animals-by-letter/' + firstLetter, "a+")
-    animalfile.write(animal + "\n")
+    animalfile.write(animal + "\t")
     animalfile.close()
