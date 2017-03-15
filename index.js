@@ -34,7 +34,7 @@ var animals = {
   'z': 'zebra'
 }
 
-exports.helloWorld = function helloWorld(req, res) {
+exports.generaterelease = function generaterelease(req, res) {
   if (req.query.letter === undefined) {
     // This is an error case, as "message" is required.
     res.status(400).send('No letter defined!');
