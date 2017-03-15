@@ -19,8 +19,10 @@ exports.generaterelease = function generaterelease(req, res) {
     request.get('https://storage.googleapis.com/animals-by-letter/'+req.query.letter.toUpperCase(), function (error, response, body) {
         if (!error && response.statusCode == 200) {
             var animalList = body;
+            console.log(animalList)
             // Continue with your processing here.
             var lines = animalList.split(/\r?\n/);
+            console.log(lines)
             chosenAnimal = lines[Math.floor(Math.random()*lines.length)];
             res.status(200).send(chosenAnimal);
         } else {
