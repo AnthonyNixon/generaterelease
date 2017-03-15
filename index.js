@@ -21,8 +21,8 @@ exports.generaterelease = function generaterelease(req, res) {
             var animalList = body;
             // Continue with your processing here.
             var lines = animalList.split('\n');
-            chosenLine = lines[Math.floor(Math.random()*lines.length)];
-            res.status(200).send(animals[req.query.letter]);
+            chosenAnimal = lines[Math.floor(Math.random()*lines.length)];
+            res.status(200).send(chosenAnimal);
         } else {
           console.error('Problem getting list from storage bucket');
           res.status(500).send('Internal Server Error getting bucket');
