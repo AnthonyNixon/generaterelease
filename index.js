@@ -40,7 +40,9 @@ exports.generaterelease = function generaterelease(req, res) {
                     var animals = animalList.split('\t');
                     console.log(animals)
                     chosenAnimal = animals[Math.floor(Math.random()*animals.length)];
-                    res.status(200).send(chosenAdjective + ' ' + chosenAnimal);
+                    var releaseName = chosenAdjective + ' ' + chosenAnimal;
+                    console.log({"animal": chosenAnimal, "adjective": chosenAdjective, "releaseName": releaseName});
+                    res.status(200).send(releaseName);
                 } else {
                   console.error('Problem getting animal file from storage bucket');
                   res.status(500).send('error getting animal file');
