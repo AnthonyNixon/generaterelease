@@ -979,7 +979,6 @@ kind
 advisory
 hostile
 precious
-gay
 accessible
 determined
 excited
