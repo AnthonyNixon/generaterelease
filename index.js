@@ -28,18 +28,18 @@ exports.generaterelease = function generaterelease(req, res) {
             var adjectiveList = body;
             console.log({"adjectives": adjectiveList})
             // Continue with your processing here.
-            var lines = adjectiveList.split('\t');
-            console.log(lines)
-            chosenAdjective = lines[Math.floor(Math.random()*lines.length)];
+            var adjectives = adjectiveList.split('\t');
+            console.log(adjectives)
+            chosenAdjective = adjectives[Math.floor(Math.random()*adjectives.length)];
 
             request.get('https://storage.googleapis.com/animals-by-letter/'+req.query.letter.toUpperCase(), function (error, response, body) {
                 if (!error && response.statusCode == 200) {
                     var animalList = body;
                     console.log({"animals": animalList})
                     // Continue with your processing here.
-                    var lines = animalList.split('\t');
-                    console.log(lines)
-                    chosenAnimal = lines[Math.floor(Math.random()*lines.length)];
+                    var animals = animalList.split('\t');
+                    console.log(animals)
+                    chosenAnimal = animals[Math.floor(Math.random()*animals.length)];
                     res.status(200).send(chosenAdjective + ' ' + chosenAnimal);
                 } else {
                   console.error('Problem getting animal file from storage bucket');
