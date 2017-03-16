@@ -21,23 +21,7 @@ exports.generaterelease = function generaterelease(req, res) {
     var chosenAnimal = ""
     var chosenAdjective = ""
 
-    animalPromise = request.get('https://storage.googleapis.com/animals-by-letter/'+req.query.letter.toUpperCase(), function (error, response, body) {
-        if (!error && response.statusCode == 200) {
-            var animalList = body;
-            console.log({"animals": animalList})
-            // Continue with your processing here.
-            var lines = animalList.split('\t');
-            console.log(lines)
-            chosenAnimal = lines[Math.floor(Math.random()*lines.length)];
-            return chosenAnimal
-        } else {
-          console.error('Problem getting animal file from storage bucket');
-          res.status(500).send('error getting animal file');
-          return ""
-        }
-    });
-
-    adjectivePromise = request.get('https://storage.googleapis.com/adjectives-by-letter/'+req.query.letter.toUpperCase(), function (error, response, body) {
+    request.get('https://storage.googleapis.com/adjectives-by-letter/'+req.query.letter.toUpperCase(), function (error, response, body) {
         if (!error && response.statusCode == 200) {
             var adjectiveList = body;
             console.log({"adjectives": adjectiveList})
@@ -45,17 +29,25 @@ exports.generaterelease = function generaterelease(req, res) {
             var lines = adjectiveList.split('\t');
             console.log(lines)
             chosenAdjective = lines[Math.floor(Math.random()*lines.length)];
-            return chosenAdjective
+
+            request.get('https://storage.googleapis.com/animals-by-letter/'+req.query.letter.toUpperCase(), function (error, response, body) {
+                if (!error && response.statusCode == 200) {
+                    var animalList = body;
+                    console.log({"animals": animalList})
+                    // Continue with your processing here.
+                    var lines = animalList.split('\t');
+                    console.log(lines)
+                    chosenAnimal = lines[Math.floor(Math.random()*lines.length)];
+                    res.status(200).send(chosenAdjective + ' ' + chosenAnimal);
+                } else {
+                  console.error('Problem getting animal file from storage bucket');
+                  res.status(500).send('error getting animal file');
+                }
+            });
         } else {
           console.error('Problem getting adjective file from storage bucket');
           res.status(500).send('error getting adjective file');
-          return ""
         }
-    });
-
-    Q.all([adjectivePromise, animalPromise]).then(function(data){
-      console.log({"result": data});
-      res.status(200).send(chosenAdjective + ' ' + chosenAnimal);
     });
   }
 };
