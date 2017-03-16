@@ -13,7 +13,7 @@ def process(itemType):
         if firstLetter not in processedLetters:
             lettersToArray[firstLetter] = []
             processedLetters.append(firstLetter)
-        lettersToArray[firstLetter].append(item)
+        lettersToArray[firstLetter].append(item.capitalize())
 
     for letter in lettersToArray:
         itemfile = open(itemType + '-by-letter/' + letter, "w+")
