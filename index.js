@@ -9,6 +9,8 @@ const googleapis = require('googleapis');
 var request = require('request');
 
 exports.generaterelease = function generaterelease(req, res) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "X-Requested-With");
   if (req.query.letter === undefined) {
     // This is an error case, as "message" is required.
     console.warn(req.query.letter, 'not found');
