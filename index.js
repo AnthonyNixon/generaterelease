@@ -38,7 +38,6 @@ exports.generaterelease = function generaterelease(req, res) {
             // Continue with your processing here.
             var adjectives = adjectiveList.split('\t');
             console.log(adjectives)
-            chosenAdjective = adjectives[Math.floor(Math.random()*adjectives.length)];
 
             request.get('https://storage.googleapis.com/animals-by-letter/'+req.query.letter.toUpperCase(), function (error, response, body) {
                 if (!error && response.statusCode == 200) {
@@ -50,6 +49,7 @@ exports.generaterelease = function generaterelease(req, res) {
                     var releases = []
                     for ( var i = 0; i < numReleases; i++ ) {
                         // This will loop numReleases times
+                        chosenAdjective = adjectives[Math.floor(Math.random()*adjectives.length)];
                         chosenAnimal = animals[Math.floor(Math.random()*animals.length)];
                         var releaseName = chosenAdjective + ' ' + chosenAnimal;
                         releases.push(releaseName)
