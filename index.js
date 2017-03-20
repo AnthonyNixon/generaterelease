@@ -22,6 +22,7 @@ exports.generaterelease = function generaterelease(req, res) {
 
     var numReleases = 1;
     if (req.query.numReleases != undefined) {
+      console.log("numReleases", req.query.numReleases, typeof(req.query.numReleases));
       if (req.query.numReleases > 1 && req.query.numReleases < 50) {
         numReleases = req.query.numReleases;
       }
