@@ -52,7 +52,9 @@ exports.generaterelease = function generaterelease(req, res) {
                         chosenAdjective = adjectives[Math.floor(Math.random()*adjectives.length)];
                         chosenAnimal = animals[Math.floor(Math.random()*animals.length)];
                         var releaseName = chosenAdjective + ' ' + chosenAnimal;
-                        releases.push(releaseName)
+                        if (releases.indexOf(releaseName) === -1) {
+                          releases.push(releaseName)
+                        }
                     }
                     console.log(releases);
 

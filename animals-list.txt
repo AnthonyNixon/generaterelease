@@ -227,3 +227,6 @@ impala
 ibex
 xenarthra
 urraca
+Uakari
+Uinta Ground Squirrel
+Umbrella Bird
