@@ -20,6 +20,13 @@ exports.generaterelease = function generaterelease(req, res) {
 
     console.log(req.query.letter);
 
+    var numReleases = 1;
+    if (req.query.letter != undefined) {
+      if (req.query.letter > 1 && req.query.letter < 50) {
+        numReleases = req.query.letter;
+      }
+    }
+
     var chosenAnimal = ""
     var chosenAdjective = ""
 
@@ -39,10 +46,16 @@ exports.generaterelease = function generaterelease(req, res) {
                     // Continue with your processing here.
                     var animals = animalList.split('\t');
                     console.log(animals)
-                    chosenAnimal = animals[Math.floor(Math.random()*animals.length)];
-                    var releaseName = chosenAdjective + ' ' + chosenAnimal;
-                    console.log({"animal": chosenAnimal, "adjective": chosenAdjective, "releaseName": releaseName});
-                    res.status(200).send(releaseName);
+                    var releases = []
+                    for ( var i = 0; i < numReleases; i++ ) {
+                        // This will loop numReleases times
+                        chosenAnimal = animals[Math.floor(Math.random()*animals.length)];
+                        var releaseName = chosenAdjective + ' ' + chosenAnimal;
+                        releases.push(releaseName)
+                    }
+                    console.log(releases);
+
+                    res.status(200).send(releases);
                 } else {
                   console.error('Problem getting animal file from storage bucket');
                   res.status(500).send('error getting animal file');
