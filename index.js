@@ -21,9 +21,9 @@ exports.generaterelease = function generaterelease(req, res) {
     console.log(req.query.letter);
 
     var numReleases = 1;
-    if (req.query.letter != undefined) {
-      if (req.query.letter > 1 && req.query.letter < 50) {
-        numReleases = req.query.letter;
+    if (req.query.numReleases != undefined) {
+      if (req.query.numReleases > 1 && req.query.numReleases < 50) {
+        numReleases = req.query.numReleases;
       }
     }
 
